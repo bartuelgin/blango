@@ -8,9 +8,14 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 """
 
 import os
+import sys
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blango.settings")
-os.environ.setdefault("DJANGO_CONFIGURATION", "Prod")
+path = '/home/baelgin/blango/'
+if path not in sys.path:
+    sys.path.append(path)
+
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blango.settings")
+#os.environ.setdefault("DJANGO_CONFIGURATION", "Dev")
 
 from configurations.wsgi import get_wsgi_application
 
