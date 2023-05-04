@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 import os.path
+import dotenv
 from pathlib import Path
 from configurations import Configuration
 from configurations import values
@@ -27,7 +28,11 @@ class Dev(Configuration):
   # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
   # SECURITY WARNING: keep the secret key used in production secret!
-  SECRET_KEY = 'django-insecure-&!=9y436&^-bc$qia-mxngyf&xx)@ct)8lu@)=qxg_07-=z01w'
+  dotenv_file = os.path.join(BASE_DIR, ".env")
+  if os.path.isfile(dotenv_file):
+      dotenv.load_dotenv(dotenv_file)
+
+  SECRET_KEY = os.environ['SECRET_KEY']
 
   # SECURITY WARNING: don't run with debug turned on in production!
   DEBUG = True
