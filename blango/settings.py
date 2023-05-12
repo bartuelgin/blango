@@ -19,6 +19,18 @@ import dj_database_url
 
 class Dev(Configuration):
 
+  # site id for django allauth
+  SITE_ID = 1
+
+  #For https redirect uri for google 0auth
+  ACCOUNT_DEFAULT_HTTP_PROTOCOL='https'
+
+  # Since our custom User model doesn’t have a username field, Django Allauth will fail, unless we make some settings changes.
+  ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+  ACCOUNT_EMAIL_REQUIRED = True
+  ACCOUNT_USERNAME_REQUIRED = False
+  ACCOUNT_AUTHENTICATION_METHOD = "email"
+
   AUTH_USER_MODEL = "blango_auth.User"
 
   EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
@@ -55,12 +67,17 @@ class Dev(Configuration):
       'django.contrib.contenttypes',
       'django.contrib.sessions',
       'django.contrib.messages',
+      'django.contrib.sites',
       'django.contrib.staticfiles',
       'blango_auth',
       'blog',
       'crispy_forms',
       'crispy_bootstrap5',
       'debug_toolbar',
+      'allauth',
+      'allauth.account',
+      'allauth.socialaccount',
+      'allauth.socialaccount.providers.google',
   ]
 
   MIDDLEWARE = [
